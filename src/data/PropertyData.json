@@ -1,0 +1,143 @@
+
+    [
+    {
+        "id": "prop-1",
+        "title": "Family Home in Petts Wood",
+        "type": "House",
+        "bedrooms": 3,
+        "price": 750000,
+        "tenure": "Freehold",
+        "description": "Attractive three bedroom semi-detached family home located in the peaceful neighborhood of Petts Wood, Orpington BR5. This spacious house offers a modern interior, a beautiful garden, and convenient access to local amenities. A perfect family home.",
+        "location": "Petts Wood, Orpington BR5",
+        "picture": [
+            "prop-1-1.jpeg",
+            "prop-1-2.jpeg",
+            "prop-1-3.jpeg",
+            "prop-1-4.jpeg",
+            "prop-1-5.jpeg",
+            "prop-1-6.jpeg",
+            "prop-1-7.jpeg"
+        ],
+        "added": "2022-10-12"
+    },
+    {
+        "id": "prop-2",
+        "title": "Well-Maintained Flat in Orpington",
+        "type": "Flat",
+        "bedrooms": 2,
+        "price": 399995,
+        "tenure": "Freehold",
+        "description": "Presented in excellent decorative order throughout is this two double bedroom flat located in Orpington BR6. This well-maintained flat offers a comfortable living space, close proximity to transport links, and local shops. Ideal for first-time buyers or investors.",
+        "location": "Orpington BR6",
+        "picture": [
+            "prop-2-1.jpeg",
+            "prop-2-2.jpeg",
+            "prop-2-3.jpeg",
+            "prop-2-4.jpeg",
+            "prop-2-5.jpeg",
+            "prop-2-6.jpeg",
+            "prop-2-7.jpeg"
+        ],
+        "added": "2022-09-14"
+    },
+    {
+        "id": "prop-3",
+        "title": "Stylish Maisonette in Brighton",
+        "type": "Maisonette",
+        "bedrooms": 1,
+        "price": 642976,
+        "tenure": "Leasehold",
+        "description": "This stylish 1-bedroom maisonette in Brighton boasts an open-plan living space and is situated in the desirable Brighton BN2 area. The property offers contemporary living, close proximity to the beach, and easy access to local amenities.",
+        "location": "Brighton BN2",
+        "picture": [
+            "prop-3-1.jpeg",
+            "prop-3-2.jpeg",
+            "prop-3-3.jpeg",
+            "prop-3-4.jpeg",
+            "prop-3-5.jpeg",
+            "prop-3-6.jpeg",
+            "prop-3-7.jpeg"
+        ],
+        "added": "2022-04-08"
+    },
+    {
+        "id": "prop-4",
+        "title": "Luxurious House in Baker Street",
+        "type": "House",
+        "bedrooms": 2,
+        "price": 850824,
+        "tenure": "Leasehold",
+        "description": "A stunning 2-bedroom house situated in the prestigious Baker Street area of London NW1. This luxurious property offers a spacious interior, modern amenities, and easy access to the heart of London. An ideal home for urban living.",
+        "location": "London NW1",
+        "picture": [
+            "prop-4-1.jpeg",
+            "prop-4-2.jpeg",
+            "prop-4-3.jpeg",
+            "prop-4-4.jpeg",
+            "prop-4-5.jpeg",
+            "prop-4-6.jpeg",
+            "prop-4-7.jpeg"
+        ],
+        "added": "2021-01-05"
+    },
+    {
+        "id": "prop-5",
+        "title": "Spacious Maisonette in Leeds",
+        "type": "Maisonette",
+        "bedrooms": 4,
+        "price": 350464,
+        "tenure": "Commonhold",
+        "description": "This spacious 4-bedroom maisonette in Leeds LS8 combines comfort with modern living. Located in a peaceful neighborhood, the property offers ample space, a well-maintained garden, and easy access to local schools and parks.",
+        "location": "Leeds LS8",
+        "picture": [
+            "prop-5-1.jpeg",
+            "prop-5-2.jpeg",
+            "prop-5-3.jpeg",
+            "prop-5-4.jpeg",
+            "prop-5-5.jpeg",
+            "prop-5-6.jpeg",
+            "prop-5-7.jpeg"
+        ],
+        "added": "2022-03-17"
+    },
+    {
+        "id": "prop-6",
+        "title": "Cozy Maisonette in Ocean Drive",
+        "type": "Maisonette",
+        "bedrooms": 2,
+        "price": 284051,
+        "tenure": "Freehold",
+        "description": "A cozy 2-bedroom maisonette located in Brighton's vibrant Ocean Drive. This charming property offers a comfortable living space, close proximity to the beach, and a friendly community. Ideal for those seeking a relaxed coastal lifestyle.",
+        "location": "Brighton BN2",
+        "picture": [
+            "prop-6-1.jpeg",
+            "prop-6-2.jpeg",
+            "prop-6-3.jpeg",
+            "prop-6-4.jpeg",
+            "prop-6-5.jpeg",
+            "prop-6-6.jpeg",
+            "prop-6-7.jpeg"
+        ],
+        "added": "2022-05-19"
+    },
+    {
+        "id": "prop-7",
+        "title": "Modern Bungalow in Brighton",
+        "type": "Bungalow",
+        "bedrooms": 2,
+        "price": 399995,
+        "tenure": "Freehold",
+        "description": "A modern 2-bedroom bungalow in Brighton, offering a spacious layout with contemporary finishes. Located in the desirable Brighton BN2 area, this property is perfect for those seeking comfort and convenience.",
+        "location": "Brighton BN2",
+        "picture": [
+            "prop-7-1.jpeg",
+            "prop-7-2.jpeg",
+            "prop-7-3.jpeg",
+            "prop-7-4.jpeg",
+            "prop-7-5.jpeg",
+            "prop-7-6.jpeg",
+            "prop-7-7.jpeg"
+        ],
+        "added": "2022-06-22"
+    }
+]
