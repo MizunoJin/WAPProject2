@@ -67,24 +67,6 @@ export const AdvancedFilterComp = ({ handleFilterChange, advancedFilter, handleF
 
             </div>
             <div className="col-sm-6 d-flex flex-column gap-1">
-                <div className="row gx-2 gy-1">
-                    <div className="col-6">
-                        <label htmlFor="minprice">Min Price</label>
-                        <input onChange={handleFilterChange} value={advancedFilter.minprice} className='px-2 w-100' type="number" name="minprice" id="minprice" min={0} />
-                    </div>
-                    <div className="col-6">
-                        <label htmlFor="maxprice">Max Price</label>
-                        <input onChange={handleFilterChange} value={advancedFilter.maxprice} className='px-2 w-100' type="number" name="maxprice" id="maxprice" min={0} />
-                    </div>
-                    <div className="col-6">
-                        <label htmlFor="minbed">Min Bedroom</label>
-                        <input onChange={handleFilterChange} value={advancedFilter.minbed} className='px-2 w-100' type="number" name="minbed" id="minbed" min={0} />
-                    </div>
-                    <div className="col-6">
-                        <label htmlFor="maxbed">Max Bedroom</label>
-                        <input onChange={handleFilterChange} value={advancedFilter.maxbed} className='px-2 w-100' type="number" name="maxbed" id="maxbed" min={0} />
-                    </div>
-                </div>
                 <div className='d-flex justify-content-end gap-2'>
                     <button onClick={resetFilter} className='btn btn-warning mt-2'>Reset</button>
                     <button onClick={handleFilterSearch} className='btn btn-primary mt-2'>Search</button>
