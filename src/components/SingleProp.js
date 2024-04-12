@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import PropertyDataMain from '../data/PropertyData.json'; 
@@ -36,8 +36,8 @@ function SingleProp() {
     return (
         <>
             <nav className='container-xl py-2'>
-                <div className="border border-primary rounded-2 d-flex align-items-center justify-content-between px-2">
-                    <Link to='/'><img className='img-fluid' src="/logo.png" alt="Logo" /></Link>
+                <div className="border border-primary rounded-2 px-2">
+                <h2 className='mx-auto text-center'>MealMap</h2>
                 </div>
             </nav>
 

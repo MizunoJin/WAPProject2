@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import PropertyDataMain from '../data/PropertyData.json';
 import { AdvancedFilterComp, FavouriteItemContent, MainItemContent } from './Common';
 
@@ -16,10 +15,6 @@ function Home() {
         location: '',
         fromdate: '',
         todate: '',
-        minprice: '',
-        maxprice: '',
-        minbed: '',
-        maxbed: '',
     })
 
 
@@ -108,10 +103,6 @@ function Home() {
             location: '',
             fromdate: '',
             todate: '',
-            minprice: '',
-            maxprice: '',
-            minbed: '',
-            maxbed: '',
         })
     }
 
@@ -122,20 +113,12 @@ function Home() {
             const isLocationMatch = !advancedFilter.location || item.location.toLowerCase().includes(advancedFilter.location.toLowerCase());
             const isFromDateMatch = !advancedFilter.fromdate || new Date(item.date) >= new Date(advancedFilter.fromdate);
             const isToDateMatch = !advancedFilter.todate || new Date(item.date) <= new Date(advancedFilter.todate);
-            const isMinPriceMatch = !advancedFilter.minprice || item.price >= advancedFilter.minprice;
-            const isMaxPriceMatch = !advancedFilter.maxprice || item.price <= advancedFilter.maxprice;
-            const isMinBedMatch = !advancedFilter.minbed || item.bedrooms >= advancedFilter.minbed;
-            const isMaxBedMatch = !advancedFilter.maxbed || item.bedrooms <= advancedFilter.maxbed;
 
             return (
                 isTypeMatch &&
                 isLocationMatch &&
                 isFromDateMatch &&
-                isToDateMatch &&
-                isMinPriceMatch &&
-                isMaxPriceMatch &&
-                isMinBedMatch &&
-                isMaxBedMatch
+                isToDateMatch
             );
         });
 
@@ -150,15 +133,8 @@ function Home() {
         //Search Bar + Drag Drop feature
         <>
             <nav className='container-xl py-2'>
-                <div className="border border-primary rounded-2 d-flex align-items-center justify-content-between px-2">
-                    <Link to='/'><img className='img-fluid' src="/logo.png" alt="Logo" /></Link>
-                    <h2 className='d-none d-md-block text-center'>AL MIGUEL'S ESTATE AGENCY</h2>
-                    <div className="d-flex flex-column gap-1 flex-shrink-1">
-                        <div className='text-primary re-fs-12 fw-medium d-flex align-items-center gap-1'><i className="fa-solid fa-magnifying-glass"></i>Search by location/type/title</div>
-                        <div className='d-flex gap-1'>
-                            <input className='searchwindow' onChange={(e) => handleSearch(e.target.value)} type="search" name="search" id="search" />
-                        </div>
-                    </div>
+                <div className="border border-primary rounded-2 px-2">
+                    <h2 className='mx-auto text-center'>MealMap</h2>
                 </div>
             </nav>
 
