@@ -1,46 +1,38 @@
-import React from 'react';
+import React from "react";
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
 
 function Home() {
   // ここではサンプルデータを使用していますが、実際のアプリケーションではAPIからユーザーデータを取得するでしょう。
   const userProfile = {
-    name: 'User Name',
-    description: 'User description here...',
-    image: 'path_to_image' // ユーザーの画像パス
+    name: "User Name",
+    description: "User description here...",
+    image:
+      "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh6XGT5Hz9MpAiyfTHlBczavuUjyTBza9zWdzYmoifglj0p1lsylcTEScnpSa-Youh7YXw-ssgO-mMQmw-DBz4NeesioQPTe8beOH_QS-A4JMnfZAGP-01gxPQrS-pPEnrnJxbdVnWguhCC/s1600/pose_pien_uruuru_woman.png",
   };
 
   const handleDislike = () => {
-    console.log('Disliked!');
+    console.log("Disliked!");
     // Dislike 処理をここに実装
   };
 
   const handleLike = () => {
-    console.log('Liked!');
+    console.log("Liked!");
     // Like 処理をここに実装
   };
 
   return (
-    <div className="container py-5">
-      <header className="text-center mb-4">
-        <h1>Tender</h1>
-      </header>
-      <div className="card mx-auto" style={{ maxWidth: '540px' }}>
-        <div className="row g-0">
-          <div className="col-md-4 d-flex align-items-center justify-content-center">
-            <img src={userProfile.image} className="img-fluid rounded-start" alt="User" />
-          </div>
-          <div className="col-md-8">
-            <div className="card-body">
-              <h5 className="card-title">{userProfile.name}</h5>
-              <p className="card-text">{userProfile.description}</p>
-              <div className="d-flex justify-content-between">
-                <button onClick={handleDislike} className="btn btn-outline-danger">Dislike</button>
-                <button onClick={handleLike} className="btn btn-outline-success">Like</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Card style={{ width: "18rem" }}>
+      <Card.Img variant="top" src={userProfile.image} />
+      <Card.Body>
+        <Card.Title>Card Title</Card.Title>
+        <Card.Text>
+          Some quick example text to build on the card title and make up the
+          bulk of the card's content.
+        </Card.Text>
+        <Button variant="primary">Go somewhere</Button>
+      </Card.Body>
+    </Card>
   );
 }
 
