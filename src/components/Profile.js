@@ -1,36 +1,79 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
+import { Form } from "react-bootstrap";
+import axios from "axios";
 
 function Profile() {
-  // ここではサンプルデータを使用していますが、実際のアプリケーションではAPIからユーザーデータを取得するでしょう。
-  const userProfile = {
-    name: 'User Name',
-    description: 'User description here...',
-    image: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh6XGT5Hz9MpAiyfTHlBczavuUjyTBza9zWdzYmoifglj0p1lsylcTEScnpSa-Youh7YXw-ssgO-mMQmw-DBz4NeesioQPTe8beOH_QS-A4JMnfZAGP-01gxPQrS-pPEnrnJxbdVnWguhCC/s1600/pose_pien_uruuru_woman.png'
-  };
+  const [userProfile, setUserProfile] = useState({
+    name: "Loading...",
+    description: "Loading...",
+    image: "placeholder-image-url",
+  });
+
+  useEffect(() => {
+    // ユーザープロフィール情報を取得する関数
+    const fetchUserProfile = async () => {
+      try {
+        // localStorageからアクセストークンを取得
+        const accessToken = localStorage.getItem("accessToken");
+
+        // axiosリクエストにトークンをヘッダーとして添付
+        const response = await axios.get("/api/UserProfiles", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+
+        setUserProfile({
+          name: response.data.name,
+          description: response.data.detail,
+          image: response.data.imageUrl,
+        });
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        // エラーが発生した場合の処理
+        setUserProfile({
+          name: "Error Loading User",
+          description: "Could not load user data. Please try again later.",
+          image: "error-placeholder-image-url",
+        });
+      }
+    };
+
+    fetchUserProfile();
+  }, []);
 
   const handleSave = () => {
-    console.log('save!');
+    console.log("save!");
     // Save 処理をここに実装
   };
 
   return (
     <div className="container py-5">
-      <div className="card mx-auto" style={{ maxWidth: '540px' }}>
-        <div className="row g-0">
-          <div className="col-md-4 d-flex align-items-center justify-content-center">
-            <img src={userProfile.image} className="img-fluid rounded-start" alt="User" />
-          </div>
-          <div className="col-md-8">
-            <div className="card-body">
-              <h5 className="card-title">{userProfile.name}</h5>
-              <p className="card-text">{userProfile.description}</p>
-              <div className="d-flex justify-content-between">
-                <button onClick={handleSave} className="btn btn-outline-success">Save</button>
-              </div>
-            </div>
-          </div>
+      <Form>
+        <div className="col-md-4 d-flex align-items-center justify-content-center mx-auto ">
+          <img
+            src={userProfile.image}
+            className="img-fluid rounded-start mx-auto d-block"
+            alt="User"
+          />
         </div>
-      </div>
+        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+          <Form.Label>Name</Form.Label>
+          <Form.Control
+            type="name"
+            placeholder="name"
+            value={userProfile.name}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+          <Form.Label>Description</Form.Label>
+          <Form.Control
+            as="textarea"
+            rows={3}
+            value={userProfile.description}
+          />
+        </Form.Group>
+      </Form>
     </div>
   );
 }

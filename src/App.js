@@ -15,6 +15,10 @@ const PrivateRoute = ({ children }) => {
   return isAuthenticated() ? children : <Navigate to="/login" />;
 };
 
+const PublicRoute = ({ children }) => {
+  return !isAuthenticated() ? children : <Navigate to="/" />;
+};
+
 function App() {
   return (
     <Router>
@@ -23,8 +27,8 @@ function App() {
         <Routes>
           <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
           <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
-          <Route path="/login" element={!isAuthenticated() ? <Login /> : <Navigate to="/" />} />
-          <Route path="/signup" element={!isAuthenticated() ? <Signup /> : <Navigate to="/" />} />
+          <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+          <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
         </Routes>
       </Container>
     </Router>
