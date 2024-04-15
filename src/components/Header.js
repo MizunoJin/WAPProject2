@@ -26,7 +26,7 @@ function Header() {
               <>
                 <Nav.Link href="/">Home</Nav.Link>
                 <Nav.Link href="/profile">Profile</Nav.Link>
-                <Nav.Link onClick={handleSignOut} href="#">Sign Out</Nav.Link>
+                <Nav.Link onClick={handleSignOut}>Sign Out</Nav.Link>
               </>
             ) : (
               <>
