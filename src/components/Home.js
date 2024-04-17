@@ -1,38 +1,61 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 
 function Home() {
-  // ここではサンプルデータを使用していますが、実際のアプリケーションではAPIからユーザーデータを取得するでしょう。
-  const userProfile = {
-    name: "User Name",
-    description: "User description here...",
-    image:
-      "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh6XGT5Hz9MpAiyfTHlBczavuUjyTBza9zWdzYmoifglj0p1lsylcTEScnpSa-Youh7YXw-ssgO-mMQmw-DBz4NeesioQPTe8beOH_QS-A4JMnfZAGP-01gxPQrS-pPEnrnJxbdVnWguhCC/s1600/pose_pien_uruuru_woman.png",
-  };
+  const [userProfiles, setUserProfiles] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get('/api/Users');
+        setUserProfiles(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        setLoading(false);
+      }
+    };
+    fetchUsers();
+  }, []);
 
   const handleDislike = () => {
     console.log("Disliked!");
-    // Dislike 処理をここに実装
+    setCurrentIndex(currentIndex + 1);
   };
 
   const handleLike = () => {
     console.log("Liked!");
-    // Like 処理をここに実装
+    setCurrentIndex(currentIndex + 1);
   };
 
+  if (loading) {
+    return <div className="d-flex justify-content-center mt-5">Loading...</div>;
+  }
+
   return (
-    <Card style={{ width: "18rem" }}>
-      <Card.Img variant="top" src={userProfile.image} />
-      <Card.Body>
-        <Card.Title>Card Title</Card.Title>
-        <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
-      </Card.Body>
-    </Card>
+    <div className="d-flex justify-content-center mt-5">
+      {currentIndex < userProfiles.length ? (
+        <Card style={{ width: "18rem" }}>
+          <Card.Img variant="top" src={userProfiles[currentIndex].imageUrl} />
+          <Card.Body>
+            <Card.Title>{userProfiles[currentIndex].name}</Card.Title>
+            <Card.Text>
+              {userProfiles[currentIndex].detail}
+            </Card.Text>
+            <div className="d-flex justify-content-between">
+              <Button variant="danger" onClick={handleDislike}>Dislike</Button>
+              <Button variant="success" onClick={handleLike}>Like</Button>
+            </div>
+          </Card.Body>
+        </Card>
+      ) : (
+        <div>No more profiles available.</div>
+      )}
+    </div>
   );
 }
 
