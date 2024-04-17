@@ -11,7 +11,12 @@ function Home() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('/api/Users');
+        const accessToken = localStorage.getItem("accessToken");
+        const response = await axios.get('/api/Users',{
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
         setUserProfiles(response.data);
         setLoading(false);
       } catch (error) {
