@@ -3,7 +3,7 @@ import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 
-function Home() {
+function Like() {
   const [userProfiles, setUserProfiles] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -12,7 +12,7 @@ function Home() {
     const fetchUsers = async () => {
       try {
         const accessToken = localStorage.getItem("accessToken");
-        const response = await axios.get('/api/Users',{
+        const response = await axios.get('/api/Swipes',{
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
@@ -45,12 +45,12 @@ function Home() {
     }
   };
 
-  const handleDislike = () => {
-    handleAction('dislike');
+  const handleDecline = () => {
+    handleAction('decline');
   };
 
-  const handleLike = () => {
-    handleAction('like');
+  const handleAccept = () => {
+    handleAction('accept');
   };
 
   if (loading) {
@@ -68,8 +68,8 @@ function Home() {
               {userProfiles[currentIndex].detail}
             </Card.Text>
             <div className="d-flex justify-content-between">
-              <Button variant="danger" onClick={handleDislike}>Dislike</Button>
-              <Button variant="success" onClick={handleLike}>Like</Button>
+              <Button variant="danger" onClick={handleDecline}>Decline</Button>
+              <Button variant="success" onClick={handleAccept}>Accept</Button>
             </div>
           </Card.Body>
         </Card>
@@ -80,4 +80,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Like;

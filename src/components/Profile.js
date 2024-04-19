@@ -63,7 +63,7 @@ function Profile() {
     }
 
     try {
-      const response = await axios.post("/api/UserProfiles", formData, {
+      const response = await axios.put("/api/UserProfiles", formData, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'multipart/form-data',
