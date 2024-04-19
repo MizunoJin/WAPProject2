@@ -60,7 +60,7 @@ function Home() {
   return (
     <div className="d-flex justify-content-center mt-5">
       {currentIndex < userProfiles.length ? (
-        <Card style={{ width: "18rem" }}>
+        <Card style={{ width: "36rem" }}>
           <Card.Img variant="top" src={userProfiles[currentIndex].imageUrl} />
           <Card.Body>
             <Card.Title>{userProfiles[currentIndex].name}</Card.Title>

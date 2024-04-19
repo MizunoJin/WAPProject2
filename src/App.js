@@ -8,6 +8,7 @@ import Header from "./components/Header";
 import Container from 'react-bootstrap/Container';
 import Like from "./components/Like";
 import ChatRoom from "./components/ChatRoom";
+import NotFound from "./components/NotFound";
 
 const isAuthenticated = () => {
   return !!localStorage.getItem('accessToken');
@@ -33,6 +34,7 @@ function App() {
           <Route path="/chat" element={<PrivateRoute><ChatRoom /></PrivateRoute>} />
           <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
           <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
+          <Route path="*" element={<NotFound/>} />
         </Routes>
       </Container>
     </Router>
