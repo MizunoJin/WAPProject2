@@ -7,6 +7,7 @@ import Profile from "./components/Profile";
 import Header from "./components/Header";
 import Container from 'react-bootstrap/Container';
 import Like from "./components/Like";
+import ChatRoom from "./components/ChatRoom";
 
 const isAuthenticated = () => {
   return !!localStorage.getItem('accessToken');
@@ -29,6 +30,7 @@ function App() {
           <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
           <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
           <Route path="/like" element={<PrivateRoute><Like /></PrivateRoute>} />
+          <Route path="/chat" element={<PrivateRoute><ChatRoom /></PrivateRoute>} />
           <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
           <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
         </Routes>
