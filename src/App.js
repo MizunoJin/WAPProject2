@@ -9,6 +9,7 @@ import Container from 'react-bootstrap/Container';
 import Like from "./components/Like";
 import ChatRoom from "./components/ChatRoom";
 import NotFound from "./components/NotFound";
+import Footer from "./components/Footer";
 
 const isAuthenticated = () => {
   return !!localStorage.getItem('accessToken');
@@ -37,6 +38,7 @@ function App() {
           <Route path="*" element={<NotFound/>} />
         </Routes>
       </Container>
+      <Footer />
     </Router>
   );
 }
