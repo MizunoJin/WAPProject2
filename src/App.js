@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./components/Home";
 import Login from "./components/Login";
@@ -10,17 +10,74 @@ import Like from "./components/Like";
 import ChatRoom from "./components/ChatRoom";
 import NotFound from "./components/NotFound";
 import Footer from "./components/Footer";
+import axios from "axios";
+import { useDispatch } from 'react-redux';
+import { setUserProfile, clearUserProfile } from './actions/userActions';
 
-const isAuthenticated = () => {
-  return !!localStorage.getItem('accessToken');
+const fetchUserProfile = async (dispatch) => {
+  try {
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      dispatch(clearUserProfile());
+      return false;
+    }
+
+    const response = await axios.get('/api/UserProfiles', {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+
+    if (response.status === 200) {
+      dispatch(setUserProfile(response.data));
+      return true;
+    } else {
+      dispatch(clearUserProfile());
+      return false;
+    }
+  } catch (error) {
+    console.error("Authentication check failed:", error);
+    dispatch(clearUserProfile());
+    return false;
+  }
 };
 
 const PrivateRoute = ({ children }) => {
-  return isAuthenticated() ? children : <Navigate to="/login" />;
+  const dispatch = useDispatch();
+  const [isAuth, setIsAuth] = useState(null);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const authenticated = await fetchUserProfile(dispatch);
+      setIsAuth(authenticated);
+    };
+
+    checkAuth();
+  }, [dispatch]);
+
+  if (isAuth === null) {
+    return <div>Loading...</div>;
+  }
+
+  return isAuth ? children : <Navigate to="/login" />;
 };
 
 const PublicRoute = ({ children }) => {
-  return !isAuthenticated() ? children : <Navigate to="/" />;
+  const dispatch = useDispatch();
+  const [isAuth, setIsAuth] = useState(null);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const authenticated = await fetchUserProfile(dispatch);
+      setIsAuth(authenticated);
+    };
+
+    checkAuth();
+  }, [dispatch]);
+
+  if (isAuth === null) {
+    return <div>Loading...</div>;
+  }
+
+  return !isAuth ? children : <Navigate to="/" />;
 };
 
 function App() {
