@@ -63,7 +63,7 @@ function Home() {
         <Card style={{ width: "36rem" }}>
           <Card.Img variant="top" src={userProfiles[currentIndex].imageUrl} />
           <Card.Body>
-            <Card.Title>{userProfiles[currentIndex].name}</Card.Title>
+            <Card.Title>{userProfiles[currentIndex].name} ({userProfiles[currentIndex].location})</Card.Title>
             <Card.Text>
               {userProfiles[currentIndex].detail}
             </Card.Text>

@@ -151,9 +151,10 @@ export default function ChatRoom() {
                               <p className="small text-muted mb-1">
                                 {contact.timestamp}
                               </p>
+                              {contact.unread === 0 ? "" : 
                               <span className="badge bg-danger rounded-pill float-end">
                                 {contact.unread}
-                              </span>
+                              </span>}
                             </div>
                           </a>
                         </li>

@@ -13,7 +13,7 @@ export default function Footer() {
                 Tender
               </h6>
               <p>
-              Before we declare that Tender is the best free app, we want to let you get to know it for real and let you judge for yourselves.
+              Find Your Perfect Match Today—Explore, Connect, and Discover Love!
               </p>
             </MDBCol>
 
