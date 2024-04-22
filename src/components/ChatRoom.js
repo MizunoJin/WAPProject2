@@ -8,6 +8,7 @@ import {
   MDBTypography,
 } from "mdb-react-ui-kit";
 import axios from "axios";
+import { useStore } from 'react-redux'
 
 export default function ChatRoom() {
   const [userProfile, setUserProfile] = useState({
@@ -19,31 +20,19 @@ export default function ChatRoom() {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [selectedUserId, setSelectedUserId] = useState(null);
+  const store = useStore();
 
   useEffect(() => {
-    const fetchUserProfile = async () => {
-      try {
-        const accessToken = localStorage.getItem("accessToken");
-        const response = await axios.get("/api/UserProfiles", {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-        setUserProfile({
-          name: response.data.name,
-          description: response.data.detail,
-          image: response.data.imageUrl,
-        });
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-        setUserProfile({
-          name: "Error Loading User",
-          description: "Could not load user data. Please try again later.",
-          image: "error-placeholder-image-url",
-        });
-      }
-    };
+    const userProfile = store.getState().user.userProfile;
+    setUserProfile({
+      name: userProfile.name,
+      description: userProfile.detail,
+      image: userProfile.imageUrl,
+      location: userProfile.location
+    });
+  }, [store]);
 
+  useEffect(() => {
     const fetchContacts = async () => {
       try {
         const accessToken = localStorage.getItem("accessToken");
@@ -58,7 +47,6 @@ export default function ChatRoom() {
       }
     };
 
-    fetchUserProfile();
     fetchContacts();
   }, []);
 

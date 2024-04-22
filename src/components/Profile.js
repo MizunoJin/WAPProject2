@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import axios from "axios";
+import { useStore } from 'react-redux'
 
 function Profile() {
+  const store = useStore();
   const [userProfile, setUserProfile] = useState({
     name: "Loading...",
     description: "Loading...",
@@ -13,31 +15,14 @@ function Profile() {
   const fileInputRef = React.createRef();
 
   useEffect(() => {
-    const fetchUserProfile = async () => {
-      try {
-        const accessToken = localStorage.getItem("accessToken");
-        const response = await axios.get("/api/UserProfiles", {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-        setUserProfile({
-          name: response.data.name,
-          description: response.data.detail,
-          image: response.data.imageUrl,
-          location: response.data.location
-        });
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-        setUserProfile({
-          name: "Error Loading User",
-          description: "Could not load user data. Please try again later.",
-          image: "error-placeholder-image-url",
-        });
-      }
-    };
-    fetchUserProfile();
-  }, []);
+    const userProfile = store.getState().user.userProfile;
+    setUserProfile({
+      name: userProfile.name,
+      description: userProfile.detail,
+      image: userProfile.imageUrl,
+      location: userProfile.location
+    });
+  }, [store]);
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
