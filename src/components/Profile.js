@@ -7,6 +7,7 @@ function Profile() {
     name: "Loading...",
     description: "Loading...",
     image: "placeholder-image-url",
+    location: null
   });
   const [file, setFile] = useState(null);
   const fileInputRef = React.createRef();
@@ -24,6 +25,7 @@ function Profile() {
           name: response.data.name,
           description: response.data.detail,
           image: response.data.imageUrl,
+          location: response.data.location
         });
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -58,6 +60,7 @@ function Profile() {
     const formData = new FormData();
     formData.append('name', userProfile.name);
     formData.append('description', userProfile.description);
+    formData.append('location', userProfile.location);
     if (file) {
       formData.append('image', file);
     }
@@ -110,6 +113,18 @@ function Profile() {
             value={userProfile.description}
             onChange={(e) => setUserProfile({...userProfile, description: e.target.value})}
           />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
+          <Form.Label>Location</Form.Label>
+          <Form.Control
+            type="location"
+            placeholder="location"
+            value={userProfile.location}
+            onChange={(e) => setUserProfile({...userProfile, location: e.target.value})}
+          />
+          {userProfile.location !== null ? <div className="mt-3">
+              <div className="rounded-2 overflow-hidden"><div className="gmap_canvas"><iframe width="100%" height="320" id="gmap_canvas" src={`https://maps.google.com/maps?q=${userProfile.location}&t=&z=13&ie=UTF8&iwloc=&output=embed`} frameborder="0" scrolling="no" marginheight="0" marginwidth="0" title=""></iframe></div></div>
+          </div> : null}
         </Form.Group>
         <Button variant="primary" onClick={handleSave}>Save</Button>
       </Form>
