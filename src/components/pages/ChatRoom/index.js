@@ -7,11 +7,11 @@ import {
   MDBCardBody,
   MDBTypography,
 } from "mdb-react-ui-kit";
-import axios from "axios";
 import { useStore } from 'react-redux'
 import Contact from "../../ui-parts/Contact";
 import Message from "../../ui-parts/Message";
 import MessageInput from "../../ui-parts/MessageInput";
+import { axiosClient } from "../../../axiosClient";
 
 export default function ChatRoom() {
   const [userProfile, setUserProfile] = useState({
@@ -38,12 +38,7 @@ export default function ChatRoom() {
   useEffect(() => {
     const fetchContacts = async () => {
       try {
-        const accessToken = localStorage.getItem("accessToken");
-        const response = await axios.get("/api/Chats", {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
+        const response = await axiosClient.get("/api/Chats");
         setContacts(response.data.$values);
       } catch (error) {
         console.error("Error fetching contacts:", error);
@@ -63,7 +58,7 @@ export default function ChatRoom() {
   const fetchMessages = async (userId) => {
     try {
       const accessToken = localStorage.getItem("accessToken");
-      const response = await axios.get(`/api/Chats/${userId}`, {
+      const response = await axiosClient.get(`/api/Chats/${userId}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -78,12 +73,7 @@ export default function ChatRoom() {
     if (!newMessage || !selectedUserId) return;
 
     try {
-      const accessToken = localStorage.getItem("accessToken");
-      await axios.post(`/api/Chats/${selectedUserId}`, { message: newMessage }, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      await axiosClient.post(`/api/Chats/${selectedUserId}`, { message: newMessage });
 
       setMessages(prevMessages => [
         ...prevMessages,

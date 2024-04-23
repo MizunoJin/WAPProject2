@@ -1,25 +1,25 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import { axiosClient } from "../../../axiosClient";
+import { Alert } from "react-bootstrap";
 
 function Home() {
   const [userProfiles, setUserProfiles] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
+    setError(null);
+    
     const fetchUsers = async () => {
       try {
-        const accessToken = localStorage.getItem("accessToken");
-        const response = await axios.get('/api/Users',{
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
+        const response = await axiosClient.get('/api/Users');
         setUserProfiles(response.data);
         setLoading(false);
       } catch (error) {
+        setError(error.message);
         console.error("Error fetching user data:", error);
         setLoading(false);
       }
@@ -31,14 +31,10 @@ function Home() {
     if (currentIndex < userProfiles.length) {
       try {
         const userId = userProfiles[currentIndex].userId;
-        const accessToken = localStorage.getItem("accessToken");
-        await axios.post(`/api/Swipes/${userId}`, { action: actionType }, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
+        await axiosClient.post(`/api/Swipes/${userId}`, { action: actionType });
         console.log(`${actionType} on user with ID ${userId}`);
       } catch (error) {
+        setError(error.message);
         console.error(`Error on ${actionType}:`, error);
       }
       setCurrentIndex(currentIndex + 1);
@@ -59,6 +55,7 @@ function Home() {
 
   return (
     <div className="d-flex justify-content-center mt-5">
+      {error && <Alert className="mb-4 mx-5 w-100" variant="danger">{error}</Alert>}
       {currentIndex < userProfiles.length ? (
         <Card style={{ width: "36rem" }}>
           <Card.Img variant="top" src={userProfiles[currentIndex].imageUrl} />

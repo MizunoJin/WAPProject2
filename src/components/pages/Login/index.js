@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import {
   MDBContainer,
   MDBRow,
   MDBCol,
 } from "mdb-react-ui-kit";
 import LoginForm from './components/LoginForm';
+import { axiosClient } from "../../../axiosClient";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -19,7 +19,7 @@ function Login() {
     setError("");
 
     try {
-      const response = await axios.post("/api/Account/login", {
+      const response = await axiosClient.post("/api/Account/login", {
         email: email,
         password: password,
       });

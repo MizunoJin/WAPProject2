@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import { axiosClient } from "../../../axiosClient";
 
 function Like() {
   const [userProfiles, setUserProfiles] = useState([]);
@@ -11,12 +11,7 @@ function Like() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const accessToken = localStorage.getItem("accessToken");
-        const response = await axios.get('/api/Swipes',{
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
+        const response = await axiosClient.get('/api/Swipes');
         setUserProfiles(response.data);
         setLoading(false);
       } catch (error) {
@@ -31,12 +26,7 @@ function Like() {
     if (currentIndex < userProfiles.length) {
       try {
         const userId = userProfiles[currentIndex].userId;
-        const accessToken = localStorage.getItem("accessToken");
-        await axios.post(`/api/Swipes/${userId}`, { action: actionType }, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
+        await axiosClient.post(`/api/Swipes/${userId}`, { action: actionType });
         console.log(`${actionType} on user with ID ${userId}`);
       } catch (error) {
         console.error(`Error on ${actionType}:`, error);

@@ -10,9 +10,9 @@ import Like from "./components/pages/Like/Like";
 import ChatRoom from "./components/pages/ChatRoom";
 import NotFound from "./components/pages/NotFound";
 import Footer from "./components/shared/Footer";
-import axios from "axios";
 import { useDispatch } from 'react-redux';
 import { setUserProfile, clearUserProfile, setAuthState } from './actions/userActions';
+import { axiosClient } from "./axiosClient";
 
 const fetchUserProfile = async (dispatch) => {
   try {
@@ -23,9 +23,7 @@ const fetchUserProfile = async (dispatch) => {
       return false;
     }
 
-    const response = await axios.get('/api/UserProfiles', {
-      headers: { Authorization: `Bearer ${token}` }
-    });
+    const response = await axiosClient.get('/api/UserProfiles');
 
     if (response.status === 200) {
       dispatch(setUserProfile(response.data));
