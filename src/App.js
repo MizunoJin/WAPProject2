@@ -12,13 +12,14 @@ import NotFound from "./components/pages/NotFound";
 import Footer from "./components/shared/Footer";
 import axios from "axios";
 import { useDispatch } from 'react-redux';
-import { setUserProfile, clearUserProfile } from './actions/userActions';
+import { setUserProfile, clearUserProfile, setAuthState } from './actions/userActions';
 
 const fetchUserProfile = async (dispatch) => {
   try {
     const token = localStorage.getItem('accessToken');
     if (!token) {
       dispatch(clearUserProfile());
+      dispatch(setAuthState(false));
       return false;
     }
 
@@ -28,14 +29,17 @@ const fetchUserProfile = async (dispatch) => {
 
     if (response.status === 200) {
       dispatch(setUserProfile(response.data));
+      dispatch(setAuthState(true));
       return true;
     } else {
       dispatch(clearUserProfile());
+      dispatch(setAuthState(false));
       return false;
     }
   } catch (error) {
     console.error("Authentication check failed:", error);
     dispatch(clearUserProfile());
+    dispatch(setAuthState(false));
     return false;
   }
 };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Alert } from "react-bootstrap";
 import axios from "axios";
 import { useStore } from 'react-redux'
 
@@ -12,6 +12,8 @@ function Profile() {
     location: null
   });
   const [file, setFile] = useState(null);
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
   const fileInputRef = React.createRef();
 
   useEffect(() => {
@@ -30,7 +32,7 @@ function Profile() {
       setFile(selectedFile);
       setUserProfile({
         ...userProfile,
-        image: URL.createObjectURL(selectedFile)  // 新しい画像のURLを即座に生成して状態を更新
+        image: URL.createObjectURL(selectedFile)
       });
     }
   };
@@ -40,6 +42,12 @@ function Profile() {
   };
 
   const handleSave = async () => {
+    setMessage(""); // Clear any previous messages
+    if (!userProfile.name || !userProfile.description || !userProfile.location) {
+      setError("Please fill out all fields.");
+      return;
+    }
+    setError(""); // Clear any previous errors
     console.log("Saving data...");
     const accessToken = localStorage.getItem("accessToken");
     const formData = new FormData();
@@ -57,9 +65,11 @@ function Profile() {
           'Content-Type': 'multipart/form-data',
         },
       });
+      setMessage("Data saved successfully.");
       console.log("Data saved successfully:", response.data);
     } catch (error) {
       console.error("Error saving user data:", error);
+      setError("Error saving data.");
     }
   };
 
@@ -84,8 +94,8 @@ function Profile() {
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
           <Form.Label>Name</Form.Label>
           <Form.Control
-            type="name"
-            placeholder="name"
+            type="text"
+            placeholder="Enter your name"
             value={userProfile.name}
             onChange={(e) => setUserProfile({...userProfile, name: e.target.value})}
           />
@@ -95,6 +105,7 @@ function Profile() {
           <Form.Control
             as="textarea"
             rows={3}
+            placeholder="Describe yourself"
             value={userProfile.description}
             onChange={(e) => setUserProfile({...userProfile, description: e.target.value})}
           />
@@ -102,15 +113,17 @@ function Profile() {
         <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
           <Form.Label>Location</Form.Label>
           <Form.Control
-            type="location"
-            placeholder="location"
+            type="text"
+            placeholder="Enter your location"
             value={userProfile.location}
             onChange={(e) => setUserProfile({...userProfile, location: e.target.value})}
           />
-          {userProfile.location !== null ? <div className="mt-3">
+          {userProfile.location ? <div className="mt-3">
               <div className="rounded-2 overflow-hidden"><div className="gmap_canvas"><iframe width="100%" height="320" id="gmap_canvas" src={`https://maps.google.com/maps?q=${userProfile.location}&t=&z=13&ie=UTF8&iwloc=&output=embed`} frameborder="0" scrolling="no" marginheight="0" marginwidth="0" title=""></iframe></div></div>
           </div> : null}
         </Form.Group>
+        {error && <Alert variant="danger">{error}</Alert>}
+        {message && <Alert variant="info">{message}</Alert>}
         <Button variant="primary" onClick={handleSave}>Save</Button>
       </Form>
     </div>

@@ -28,7 +28,11 @@ function Login() {
       navigate("/");
     } catch (err) {
       if (err.response) {
-        setError(err.response.data.message);
+        if (err.response.status === 401) {
+          setError("Invalid email or password.");
+        } else {
+          setError(err.response.data);
+        }
       } else {
         setError("Login failed. Server not responding.");
       }
@@ -54,7 +58,7 @@ function Login() {
             <img
               src="https://i.pinimg.com/736x/c4/52/8e/c4528e0de41c8cb80c8fd9f025db9eb8.jpg"
               alt="Login image"
-              className="w-100"
+              className="w-100 my-auto h-100"
               style={{ objectFit: "cover", objectPosition: "left" }}
             />
           </MDBCol>

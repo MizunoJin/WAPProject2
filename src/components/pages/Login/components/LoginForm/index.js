@@ -44,7 +44,7 @@ function LoginForm({ email, setEmail, password, setPassword, handleSubmit, error
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        {error && <Alert variant="danger">{error}</Alert>}
+        {error && <Alert className="mb-4 mx-5 w-100" variant="danger">{error}</Alert>}
 
         <Button className="mb-4 px-5 mx-5 w-100" color="info" size="lg" type="submit">
           Login

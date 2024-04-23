@@ -1,18 +1,19 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { clearUserProfile } from '../../actions/userActions';
 
 function Header() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const isAuth = useSelector(state => state.user.isAuth);
 
   const handleSignOut = () => {
     localStorage.removeItem('accessToken');
+    dispatch(clearUserProfile());
     navigate('/login');
-  };
-
-  const isAuthenticated = () => {
-    return !!localStorage.getItem('accessToken');
   };
 
   return (
@@ -22,7 +23,7 @@ function Header() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            {isAuthenticated() ? (
+            {isAuth ? (
               <>
                 <Nav.Link href="/">Home</Nav.Link>
                 <Nav.Link href="/profile">Profile</Nav.Link>
