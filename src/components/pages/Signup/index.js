@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import axios from "axios";
 import {
   MDBContainer,
   MDBRow,
   MDBCol,
 } from "mdb-react-ui-kit";
 import SignupForm from './components/SignupForm';
+import { axiosClient } from "../../../axiosClient";
 
 function Signup() {
   const [email, setEmail] = useState("");
@@ -19,7 +19,7 @@ function Signup() {
     setMessage("");
 
     try {
-      const response = await axios.post("/api/Account/register", {
+      const response = await axiosClient.post("/api/Account/register", {
         email: email,
         password: password,
       });

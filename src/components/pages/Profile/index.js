@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
-import axios from "axios";
 import { useStore } from 'react-redux'
+import { axiosClient } from "../../../axiosClient";
 
 function Profile() {
   const store = useStore();
@@ -49,7 +49,6 @@ function Profile() {
     }
     setError(""); // Clear any previous errors
     console.log("Saving data...");
-    const accessToken = localStorage.getItem("accessToken");
     const formData = new FormData();
     formData.append('name', userProfile.name);
     formData.append('description', userProfile.description);
@@ -59,12 +58,7 @@ function Profile() {
     }
 
     try {
-      const response = await axios.put("/api/UserProfiles", formData, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const response = await axiosClient.put("/api/UserProfiles", formData);
       setMessage("Data saved successfully.");
       console.log("Data saved successfully:", response.data);
     } catch (error) {

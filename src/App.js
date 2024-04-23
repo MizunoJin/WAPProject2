@@ -1,31 +1,39 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Home from "./components/pages/Home";
 import Login from "./components/pages/Login";
 import Signup from "./components/pages/Signup";
 import Profile from "./components/pages/Profile";
 import Header from "./components/shared/Header";
-import Container from 'react-bootstrap/Container';
+import Container from "react-bootstrap/Container";
 import Like from "./components/pages/Like/Like";
 import ChatRoom from "./components/pages/ChatRoom";
 import NotFound from "./components/pages/NotFound";
 import Footer from "./components/shared/Footer";
-import axios from "axios";
-import { useDispatch } from 'react-redux';
-import { setUserProfile, clearUserProfile, setAuthState } from './actions/userActions';
+import { useDispatch } from "react-redux";
+import {
+  setUserProfile,
+  clearUserProfile,
+  setAuthState,
+} from "./actions/userActions";
+import { axiosClient } from "./axiosClient";
+import { ErrorBoundary } from "./ErrorBoundary";
 
 const fetchUserProfile = async (dispatch) => {
   try {
-    const token = localStorage.getItem('accessToken');
+    const token = localStorage.getItem("accessToken");
     if (!token) {
       dispatch(clearUserProfile());
       dispatch(setAuthState(false));
       return false;
     }
 
-    const response = await axios.get('/api/UserProfiles', {
-      headers: { Authorization: `Bearer ${token}` }
-    });
+    const response = await axiosClient.get("/api/UserProfiles");
 
     if (response.status === 200) {
       dispatch(setUserProfile(response.data));
@@ -88,17 +96,61 @@ function App() {
   return (
     <Router>
       <Header />
-      <Container>
-        <Routes>
-          <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
-          <Route path="/profile" element={<PrivateRoute><Profile /></PrivateRoute>} />
-          <Route path="/like" element={<PrivateRoute><Like /></PrivateRoute>} />
-          <Route path="/chat" element={<PrivateRoute><ChatRoom /></PrivateRoute>} />
-          <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
-          <Route path="/signup" element={<PublicRoute><Signup /></PublicRoute>} />
-          <Route path="*" element={<NotFound/>} />
-        </Routes>
-      </Container>
+      <ErrorBoundary>
+        <Container>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <PrivateRoute>
+                  <Home />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <PrivateRoute>
+                  <Profile />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/like"
+              element={
+                <PrivateRoute>
+                  <Like />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/chat"
+              element={
+                <PrivateRoute>
+                  <ChatRoom />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <PublicRoute>
+                  <Login />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/signup"
+              element={
+                <PublicRoute>
+                  <Signup />
+                </PublicRoute>
+              }
+            />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Container>
+      </ErrorBoundary>
       <Footer />
     </Router>
   );
