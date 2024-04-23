@@ -27,7 +27,12 @@ function Signup() {
         "A confirmation email has been sent. Please click the link in the email to complete the registration."
       );
     } catch (error) {
-      setError(error.response?.data?.message || "Failed to register.");
+      console.log(error.response)
+      if (error.response?.data?.$values) {
+          setError(error.response.data.$values.map((value) => value.description).join(" "));
+      } else {
+        setError("Failed to register.");
+      }
     }
   };
 
@@ -50,7 +55,7 @@ function Signup() {
             <img
               src="https://i.pinimg.com/736x/c4/52/8e/c4528e0de41c8cb80c8fd9f025db9eb8.jpg"
               alt="Login image"
-              className="w-100"
+              className="w-100 my-auto h-100"
               style={{ objectFit: "cover", objectPosition: "left" }}
             />
           </MDBCol>
