@@ -11,7 +11,7 @@ import Signup from "./components/pages/Signup";
 import Profile from "./components/pages/Profile";
 import Header from "./components/shared/Header";
 import Container from "react-bootstrap/Container";
-import Like from "./components/pages/Like/Like";
+import Like from "./components/pages/Like";
 import ChatRoom from "./components/pages/ChatRoom";
 import NotFound from "./components/pages/NotFound";
 import Footer from "./components/shared/Footer";
