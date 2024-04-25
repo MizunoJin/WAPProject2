@@ -1,5 +1,28 @@
 # Tender
 
+## Dependency
+
+```json
+"@react-spring/web": "^9.7.3",
+"@testing-library/jest-dom": "^5.17.0",
+"@testing-library/react": "^13.4.0",
+"@testing-library/user-event": "^13.5.0",
+"axios": "^1.6.8",
+"bootstrap": "^5.3.3",
+"mdb-react-ui-kit": "^8.0.0",
+"react": "^18.2.0",
+"react-bootstrap": "^2.10.2",
+"react-dom": "^18.2.0",
+"react-redux": "^9.1.1",
+"react-router-dom": "^6.22.3",
+"react-scripts": "5.0.1",
+"react-spring": "^9.7.3",
+"react-swipeable": "^7.0.1",
+"react-tabs": "^6.0.2",
+"redux": "^5.0.1",
+"web-vitals": "^2.1.4"
+```
+
 ## Rubrics and Explanation
 
 ### 1. Adequate Setup of the React JS Project
