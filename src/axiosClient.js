@@ -29,7 +29,6 @@ axiosClient.interceptors.response.use(
       case 401:
         console.error("Unauthorized request");
         localStorage.removeItem("accessToken");
-        window.location.href = "/login";
         return Promise.reject({ message: "Unauthorized request" });
       case 403:
         console.error("Forbidden request");
