@@ -27,7 +27,9 @@ function Login() {
       localStorage.setItem("accessToken", response.data.token);
       navigate("/");
     } catch (err) {
-      if (err.response) {
+      if (err.message) {
+        setError(err.message);
+      } else if (err.response) {
         if (err.response.status === 401) {
           setError("Invalid email or password.");
         } else {
