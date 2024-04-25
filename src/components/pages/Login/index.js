@@ -27,16 +27,10 @@ function Login() {
       localStorage.setItem("accessToken", response.data.token);
       navigate("/");
     } catch (err) {
-      if (err.message) {
-        setError(err.message);
-      } else if (err.response) {
-        if (err.response.status === 401) {
-          setError("Invalid email or password.");
-        } else {
-          setError(err.response.data);
-        }
+      if (err.response.status === 401) {
+        setError("Invalid email or password.");
       } else {
-        setError("Login failed. Server not responding.");
+        setError(err.response.data);
       }
     }
   };

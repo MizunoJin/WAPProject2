@@ -23,13 +23,6 @@ axiosClient.interceptors.response.use(
   },
   (error) => {
     switch (error.response?.status) {
-      case 400:
-        console.error("Bad request");
-        return Promise.reject({ message: "Bad request" });
-      case 401:
-        console.error("Unauthorized request");
-        localStorage.removeItem("accessToken");
-        return Promise.reject({ message: "Unauthorized request" });
       case 403:
         console.error("Forbidden request");
         return Promise.reject({ message: "Forbidden request" });
@@ -45,6 +38,6 @@ axiosClient.interceptors.response.use(
       default:
         break;
     }
-    return Promise.reject({ message: error.response.data });
+    return Promise.reject(error);
   }
 );

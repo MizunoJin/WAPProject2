@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
-import { useStore } from 'react-redux'
+import { useDispatch, useStore } from 'react-redux'
 import { axiosClient } from "../../../axiosClient";
+import { useNavigate } from "react-router-dom";
+import { clearUserProfile } from "../../../actions/userActions";
 
 function Profile() {
+  const navigate = useNavigate();
   const store = useStore();
+  const dispatch = useDispatch();
   const [userProfile, setUserProfile] = useState({
     name: "Loading...",
     description: "Loading...",
@@ -67,6 +71,21 @@ function Profile() {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      const response = await axiosClient.delete("/api/UserProfiles");
+
+      if (response.status === 200) {
+        localStorage.removeItem('accessToken');
+        dispatch(clearUserProfile());
+        navigate('/login');
+      }
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      setError("Error deleting user.");
+    }
+  };
+
   return (
     <div className="container py-5">
       <Form>
@@ -119,6 +138,7 @@ function Profile() {
         {error && <Alert variant="danger">{error}</Alert>}
         {message && <Alert variant="info">{message}</Alert>}
         <Button variant="primary" onClick={handleSave}>Save</Button>
+        <Button variant="danger" onClick={handleDelete} className="ms-2">Delete</Button>
       </Form>
     </div>
   );

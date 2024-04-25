@@ -1,10 +1,6 @@
 import React, { useState } from "react";
-import {
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-} from "mdb-react-ui-kit";
-import SignupForm from './components/SignupForm';
+import { MDBContainer, MDBRow, MDBCol } from "mdb-react-ui-kit";
+import SignupForm from "./components/SignupForm";
 import { axiosClient } from "../../../axiosClient";
 
 function Signup() {
@@ -19,7 +15,7 @@ function Signup() {
     setMessage("");
 
     try {
-      const response = await axiosClient.post("/api/Account/register", {
+      await axiosClient.post("/api/Account/register", {
         email: email,
         password: password,
       });
@@ -27,9 +23,13 @@ function Signup() {
         "A confirmation email has been sent. Please click the link in the email to complete the registration."
       );
     } catch (error) {
-      console.log(error.response)
+      console.log("Error registering:", error.response.data)
       if (error.response?.data?.$values) {
-          setError(error.response.data.$values.map((value) => value.description).join(" "));
+        setError(
+          error.response.data?.$values
+            .map((value) => value.description)
+            .join(" ")
+        );
       } else {
         setError("Failed to register.");
       }
